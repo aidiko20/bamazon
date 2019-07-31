@@ -1,4 +1,6 @@
 var mysql = require("mysql");
+require("console.table");
+var inquirer = require("inquirer");
 var connection = mysql.createConnection({
   host: "localhost",
 
@@ -16,22 +18,15 @@ var connection = mysql.createConnection({
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
+  inventory();
 });
-var inventory = function () {
+function inventory () {
   var query = "SELECT * FROM products";
   connection.query(query, function (err, res) {
     if (err) throw err;
-    var showTable = new Table({
-      head: ("Product ID", "Product Name", "Category", "Price per item", "Quantity"),
-      colWidth: [15, 30, 30, 15, 20]
-    });
+    console.table(res);
 
-    for (var i = 0; i < res.length; i++) {
-      showTable.push(
-        [res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].quantity]
-      );
-    }
-      console.log(showTable.toString());
+
       buyPrompt();
     });
 }
@@ -41,15 +36,18 @@ function buyPrompt(){
       type:"input",
       message: "Please type Item ID you like to buy",
       name: "ID"
-    },
+     },
     {
       type:"input",
       message: "Please type how many items you would like to buy",
       name: "Quantity"
-    },
+    }
   ]).then (function (inputs){
-    var quantityBought = answers.Quantity;
-    var IDbought = anwers.ID;
-    orderBuy(IDrequest, quantityRequest);
+    console.log(inputs)
+    checkInventory();
   });
 };
+ function checkInventory(inputs){
+   console.log(inputs)
+ }
+
