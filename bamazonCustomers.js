@@ -73,10 +73,28 @@ function buyPrompt() {
           var updateQuantity = res[i].QUANTITY - inputs.Quantity;
           console.log("Quantity of " + res[i].PRODUCT_NAME + " has been updated");
           connection.query("UPDATE products SET QUANTITY = " + updateQuantity + " WHERE ID = " + res[i].ID, function(err, res){
-          
-          })
+          checkOut();
+          });
         }
       }
-    });
+    })
+  })
+}
+function checkOut(){
+  inquirer.prompt([
+    {
+      name: "buyMore",
+      type: "checkbox",
+      message: "Do you want to buy more products?",
+      choices:["Yes", "NO"]
+    }
+  ]).then (function(res) {
+    if (res.Yes == true) {
+      console.log("Let's shop more");
+      buyPrompt();
+    } else {
+      console.log("Thank you for your business with Bamazon");
+      connection.end();
+    }
   })
 }
