@@ -20,34 +20,54 @@ connection.connect(function (err) {
   console.log("connected as id " + connection.threadId);
   inventory();
 });
-function inventory () {
-  var query = "SELECT * FROM products";
-  connection.query(query, function (err, res) {
+function inventory() {
+  connection.query("SELECT * FROM products", function (err, res) {
+    console.log("\r\n\r\n\r\n*********WELCOME TO BAMAZON*********\r\n\r\n\r\n");
     if (err) throw err;
     console.table(res);
 
 
-      buyPrompt();
-    });
-}
-function buyPrompt(){
-  inquirer.prompt([ 
-    {
-      type:"input",
-      message: "Please type Item ID you like to buy",
-      name: "ID"
-     },
-    {
-      type:"input",
-      message: "Please type how many items you would like to buy",
-      name: "Quantity"
-    }
-  ]).then (function (inputs){
-    console.log(inputs)
-    checkInventory();
+    buyPrompt(res);
   });
-};
- function checkInventory(inputs){
-   console.log(inputs)
- }
-
+}
+function buyPrompt() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "Please type Item ID you like to buy",
+      name: "ID",
+      validate: function (value) {
+        if (value!== "" && isNaN(value) == false && value < 11) {
+          return true;
+        } else {
+          return ("Sorry no item under that id");
+        }
+      }
+    },
+    {
+      type: "input",
+      message: "Please type how many items you would like to buy",
+      name: "Quantity",
+      validate: function (value) {
+        if (value!== "" && isNaN(value) == false) {
+          return true;
+        } else {
+          return ("Please enter a number");
+        }
+      }
+    }
+  ]).then(function (inputs) {
+    var query = "SELECT id, product_name, price, quantity FROM products WHERE id = ?";
+    connection.query(query, [inputs.ID], function (err, res){
+      for (var i = 0; i<res.length; i++) {
+        console.log("Your choice is: " + (res[i].product_name) + " " + ("in the qunatity of ") + (inputs.Quantity));
+        if (res[i].quantity < inputs.Quantity) {
+          console.log("Sorry we don't have enough stock");
+        }
+        else {
+          console.log("You are done!")
+        }
+      }
+    });
+  })
+}
