@@ -34,7 +34,7 @@ function buyPrompt() {
   inquirer.prompt([
     {
       type: "input",
-      message: "Please type Item ID you like to buy\r\n",
+      message: "Which Item ID you would like to buy?\r\n",
       name: "ID",
       validate: function (value) {
         if (value!== "" && isNaN(value) == false && value < 11) {
@@ -46,7 +46,7 @@ function buyPrompt() {
     },
     {
       type: "input",
-      message: "Please type how many items you would like to buy\r\n",
+      message: "How many items you would like to buy?\r\n",
       name: "Quantity",
       validate: function (value) {
         if (value!== "" && isNaN(value) == false) {
@@ -89,12 +89,14 @@ function checkOut(){
       choices:["Yes", "NO"]
     }
   ]).then (function(res) {
-    if (res.Yes == true) {
+    if (res.buyMore == "Yes") {
       console.log("\r\nLet's shop more!\r\n");
+      inventory();
       buyPrompt();
+      
     } else {
       console.log("\r\n>>>>> Thank you for your business with Bamazon <<<<<\r\n");
       connection.end();
     }
-  })
+  }) 
 }
