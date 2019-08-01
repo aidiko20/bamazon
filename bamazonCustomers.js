@@ -65,7 +65,10 @@ function buyPrompt() {
           console.log("Sorry we don't have enough stock");
         }
         else {
-          console.log("You are done!")
+          console.log("Your order was made successfully ");
+          var totalCost = res[i].price * inputs.Quantity;
+          console.log("Your total cost for " + res[i].product_name + " is " + totalCost);
+          console.log("Thank you for shopping in Bamazon. Have a good day!");
         }
       }
     });
