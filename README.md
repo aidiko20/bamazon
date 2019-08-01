@@ -1,11 +1,13 @@
 # Bamazon
 Contributor: Aida Yrysbekova
+------------------
 Created on: 07/29/2019
+------------------
 Technologies used: Github, MySQL, Node.js, Javascript, Node Packages (MySQL, Inquirer, Console.table)
 -----------------------------
 #Video here ()
 -----------------------------
-#How to use the app:
+#How to use the app
 1. Open terminal
 2. Navigate to file named bamazonCustomers.js
 3. Install all packages (MySQL, Inquirer, console.table)
