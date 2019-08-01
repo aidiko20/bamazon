@@ -13,26 +13,22 @@ Technologies used: Github, MySQL, Node.js, Javascript, Node Packages (MySQL, Inq
 2. Navigate to file named bamazonCustomers.js
 3. Install all packages (MySQL, Inquirer, console.table)
 4. In terminal type "node bamazonCustomers.js
-5. Content with inventory will display
-<<<<<<< HEAD
- 
-=======
- ![Screenshot] (https://raw.githubusercontent.com/aidiko20/bamazon/master/screenshots/ScreenShotofTable.png)
->>>>>>> 1465de58d4c47be51aa3e6de5e952236827991c6
+5. Content with inventory will display 
+![Alt text] (screenshots/ScreenShotofTable.png)
 6. You will be asked to input ID number of product you want to buy
   1. If you enter ID number different from the inventory, you will be asked to input ID number again. 
 7. You will also be asked to input quantity of product you want to buy
   1. If you input more then actual quantity of product message "Sorry we don't have enough stock" will be displayed
      1. You will be asked to put ID number of product again
 8. Congratulations you made your purchase
-![alt text] (https://raw.githubusercontent.com/aidiko20/bamazon/master/screenshots/ScreenShotofPrompts.png)
+![Alt text] (screenshots/ScreenShotofPrompts.png)
 9. Your total cost will be displayed
 10. MySQL will update on quantity of the product that was purchased
 11. You will be asked if you want to buy more products
   1. Choose 'Yes' to buy more
     1. You will be asked to input ID number again.
   2. Choose 'No' to stop.
-  ![alt text] (screenshots/ScreenShotofNoCheckOut.png);
+  ![Alt text] (screenshots/ScreenShotofNoCheckOut.png);
 
 
 #Instruction for building the app
