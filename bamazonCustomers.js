@@ -22,7 +22,7 @@ connection.connect(function (err) {
 });
 function inventory() {
   connection.query("SELECT * FROM products", function (err, res) {
-    console.log("\r\n\r\n\r\n*********WELCOME TO BAMAZON*********\r\n\r\n\r\n");
+    console.log("\r\n\r\n\r\n*********  WELCOME TO BAMAZON  *********\r\n\r\n");
     if (err) throw err;
     console.table(res);
 
@@ -57,18 +57,24 @@ function buyPrompt() {
       }
     }
   ]).then(function (inputs) {
-    var query = "SELECT id, product_name, price, quantity FROM products WHERE id = ?";
+    var query = "SELECT ID, PRODUCT_NAME, DEPARTMENT_NAME, PRICE, QUANTITY FROM products WHERE id = ?";
     connection.query(query, [inputs.ID], function (err, res){
       for (var i = 0; i<res.length; i++) {
-        console.log("Your choice is: " + (res[i].product_name) + " " + ("in the qunatity of ") + (inputs.Quantity));
-        if (res[i].quantity < inputs.Quantity) {
+        console.log("Your choice is: " + (res[i].PRODUCT_NAME) + " " + ("in the quantity of ") + (inputs.Quantity));
+        if (res[i].QUANTITY < inputs.Quantity) {
           console.log("Sorry we don't have enough stock");
+          buyPrompt();
         }
         else {
           console.log("Your order was made successfully ");
-          var totalCost = res[i].price * inputs.Quantity;
-          console.log("Your total cost for " + res[i].product_name + " is " + totalCost);
+          var totalCost = res[i].PRICE * inputs.Quantity;
+          console.log("Your total cost for " + res[i].PRODUCT_NAME + " is " + totalCost);
           console.log("Thank you for shopping in Bamazon. Have a good day!");
+          var updateQuantity = res[i].QUANTITY - inputs.Quantity;
+          console.log("Quantity of " + res[i].PRODUCT_NAME + " has been updated");
+          connection.query("UPDATE products SET QUANTITY = " + updateQuantity + " WHERE ID = " + res[i].ID, function(err, res){
+          
+          })
         }
       }
     });
