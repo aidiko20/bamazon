@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+require('dotenv').config()
 require("console.table");
 var inquirer = require("inquirer");
 var connection = mysql.createConnection({
@@ -11,7 +12,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "Sladkiy2216",
+  password: process.env.d_b,
   database: "bamazon_db"
 });
 
@@ -96,7 +97,6 @@ function checkOut(){
       
     } else {
       console.log("\r\n>>>>> Thank you for your business with Bamazon <<<<<\r\n");
-      connection.end();
     }
   }) 
 }
